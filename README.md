@@ -1,2 +1,2 @@
 # BotBitcoinCrawler
-Prosty bot wyciągający adressy nodów Bitcoina z tzw. seed dnsów
+Prosty bot wyciągający adresy nodów Bitcoina z tzw. seed dnsów
