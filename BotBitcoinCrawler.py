@@ -33,7 +33,7 @@ class BotBitcoinCrawler:
             ("dnsseed.bitcoin.dashjr.org", 8333),
             ("seed.bitcoinstats.com", 8333),
             ("seed.btc.petertodd.org", 8333),
-            ("bitcoinseed.jonasschnelli.ch", 8333),
+            ("seed.bitcoin.jonasschnelli.ch", 8333),
         ]
         err = []
         
