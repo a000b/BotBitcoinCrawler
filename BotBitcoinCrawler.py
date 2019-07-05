@@ -1,5 +1,4 @@
 import socket
-import time
 
 class Peer:
     def __init__(self, source, ip_addr, port):
@@ -35,7 +34,6 @@ class BotBitcoinCrawler:
             ("seed.btc.petertodd.org", 8333),
             ("seed.bitcoin.jonasschnelli.ch", 8333),
         ]
-        err = []
         
         try:
             for (ip_address, port) in dns_seeds:
