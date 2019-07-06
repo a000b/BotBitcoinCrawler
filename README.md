@@ -6,4 +6,4 @@ Przy pomocy:
 
 http://sebastianappelt.com/understanding-blockchain-peer-discovery-and-establishing-a-connection-with-python/
 
-https://en.bitcoin.it/wiki/Satoshi_Client_Node_Discovery#DNS_Addresses
+https://github.com/bitcoin/bitcoin/blob/master/src/chainparams.cpp
