@@ -1,52 +1,69 @@
-import socket
+## Book organizator
 
-class Peer:
-    def __init__(self, source, ip_addr, port):
-        self.source = source
-        self.ip_addr = ip_addr
-        self.port = port
+class Book:
+    def __init__(self, title, authors, rating, read):
+        self.title = title
+        self.authors = authors
+        self.set_rating(rating)
+        self.read = read
+    
+    def set_rating(self, value):
+        if value >= 1.0 and value <= 10.0:
+            self.rating = value
         
-class BotBitcoinCrawler:
+    def set_read(self, value):
+        if value == "tak":
+            self.read = True
+        else:
+            self.read = False
+
+class BookBot:
     def __init__(self):
-        self.baza = []
-    
-    def add_peer(self, source, ip_addr, port):
-        p = Peer(source, ip_addr, port)
-        self.baza.append(p)
-    
-    def print_peer(self, index):
-        peer = self.baza[index]
-        print("{:5} | {:32} | {:16} | {:4}".format(index, peer.source, peer.ip_addr, peer.port))
-                                                  
-    def print_all(self):
-        for index in range(len(self.baza)):
-            self.print_peer(index)
-    
+        self.shelve = []
 
-    def get_node_addresses(self):
-        # lista nodów z https://en.bitcoin.it/wiki/Satoshi_Client_Node_Discovery#DNS_Addresses
-        # seed.bitcoin.jonasschnelli.ch nie działa
-        dns_seeds = [
-            ("seed.bitcoin.sipa.be", 8333),
-            ("dnsseed.bluematt.me", 8333),
-            ("dnsseed.bitcoin.dashjr.org", 8333),
-            ("seed.bitcoinstats.com", 8333),
-            ("seed.btc.petertodd.org", 8333),
-            ("seed.bitcoin.jonasschnelli.ch", 8333),
-        ]
+##------------------ADD---------------------------------     
+    def add_book(self, title, authors, rating, read):
+        b = Book(title, authors, rating, read)
+        self.shelve.append(b)
+    
+    def add_boo_from_input(self):
+        title = input("Tytuł :")
+        authors = input("Autorzy :")
+        rating = float(input("Ocena :"))
+        read = input("Przeczytana? :")
         
-        try:
-            for (ip_address, port) in dns_seeds:
+        if read == "tak":
+            read = True
+        else:
+            read = False
+            
+        self.add_book(title, authors, rating, read)
+        
+##------------------SET---------------------------------        
+    def set_book_rating(self, book_index, rating):
+        book = self.shelve[book_index]
+        book.set_rating(rating)
+    
+    def set_book_read(self, book_index, read):
+        book = self.shelve[book_index]
+        book.set_read(read)        
 
-                for info in socket.getaddrinfo(ip_address, port,
-                                               socket.AF_INET, socket.SOCK_STREAM,
-                                               socket.IPPROTO_TCP):
-                    self.add_peer(ip_address, info[4][0], info[4][1])
-        except:
-                print(ip_address, "Ops, jakiś error")
+##------------------PRINT--------------------------------     
+    def print_book(self, indeks):
+        book = self.shelve[indeks]
+        print("{:4} | {:70} | {:30} | {:4} | {:5}".format(indeks, book.title, book.authors, book.rating, book.read))
 
+    def print_all_books(self):
+        for index in range(len(self.shelve)):
+            self.print_book(index)
+    
 
+        
+bot = BookBot()
 
-bot = BotBitcoinCrawler()
-bot.get_node_addresses()
-bot.print_all()
+bot.add_book("Bitcoin dla zaawansowanych", "Antonopoulos Andreas M.", 9.0, False)
+bot.add_book("Giełda podstawy inwestowania", "Adam Zaręba", 7.5, False)
+bot.add_book("Analiza fundamentalna.Standing finansowy i wycena przedsiębiorstwa", "Artur Sajnóg", 6.0, True)
+bot.add_book("Tales od Mystery and Imagination", "Edgar Allan Poe", 9.5, True)
+
+bot.print_all_books()
