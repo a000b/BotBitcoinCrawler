@@ -26,7 +26,7 @@ class BotBitcoinCrawler:
     
 
     def get_node_addresses(self):
-        # lista nodów z https://en.bitcoin.it/wiki/Satoshi_Client_Node_Discovery#DNS_Addresses
+        # lista nodów z https://github.com/bitcoin/bitcoin/blob/master/src/chainparams.cpp
         # seed.bitcoin.jonasschnelli.ch nie działa
         dns_seeds = [
             ("seed.bitcoin.sipa.be", 8333),
@@ -34,7 +34,9 @@ class BotBitcoinCrawler:
             ("dnsseed.bitcoin.dashjr.org", 8333),
             ("seed.bitcoinstats.com", 8333),
             ("seed.btc.petertodd.org", 8333),
-            ("seed.bitcoin.jonasschnelli.ch", 8333),
+            ("seed.bitcoin.sprovoost.nl", 8333),
+            ("dnsseed.emzy.de", 8333),
+            ("seed.bitcoin.jonasschnelli.ch", 8333)
         ]
         
         try:
@@ -77,7 +79,7 @@ def create_entry(conn, sql, v1, v2):
 def select_entry(conn):
 
     c = conn.cursor()
-    print("SELECT * FROM NODES ORDER BY ID LIMIT 5")
+    print("SELECT * FROM NODES ORDER BY ID DESC LIMIT 5")
     c.execute("SELECT * FROM NODES ORDER BY ID DESC LIMIT 5")
  
     rows = c.fetchall()
@@ -90,10 +92,10 @@ def create_baza():
 
     sql_create_nodes_table = """ CREATE TABLE IF NOT EXISTS nodes (
                                         id INTEGER PRIMARY KEY,
-                                        seed varchar(50) NOT NULL,
-                                        nodeip varchar(50),
-                                        nodeport integer,
-                                        ts timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+                                        seed VARCHAR(50) NOT NULL,
+                                        nodeip VARCHAR(50),
+                                        nodeport INTEGER,
+                                        ts TIMESTAMP DATETIME DEFAULT CURRENT_TIMESTAMP
                                     ) """
     sql_insert_nodes_table = """ INSERT INTO nodes(id, seed, nodeip, nodeport)
               VALUES(?, ?, ?, ?)""" 
