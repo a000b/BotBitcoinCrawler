@@ -1,5 +1,6 @@
 # BotBitcoinCrawler
 Prosty bot wyciągający adresy nodów Bitcoina z tzw. seed dnsów.
+W katalogu bota tworzy się baza SQLite nodes_ips.db ze ściągniętymi danymi.
 
 Przy pomocy:
 
